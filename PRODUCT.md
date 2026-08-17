@@ -31,6 +31,8 @@ Visitors are likely comparing professional-service partners while protecting an 
 - Black Label is the selected canonical brand and homepage direction. The two rejected concepts remain only as unlinked internal references until the owner chooses to remove them.
 - The primary conversion is a Growth Audit Request; the secondary conversion is a Strategy Call.
 - Audit forms collect only practical firm and contact information and must not imply that automated analysis has already occurred.
+- Firms may request an audit without an existing website; the website field is optional and must never block the enquiry.
+- Successful audit delivery redirects to a dedicated no-index thank-you page that explains the next step and offers a strategy-call path without invented timelines.
 - The site must be responsive, accessible, SEO-ready, and respectful of reduced-motion preferences.
 - Resend is the intended email delivery service. Production sender, recipient, calendar URL, analytics, privacy copy, and deployment target remain open decisions.
 

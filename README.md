@@ -31,6 +31,7 @@ The selected visual direction is **Black Label**, internally described as **The 
 - Expandable diagnostic and expertise disclosures.
 - GSAP and Motion-powered reveal, journey, and score animations.
 - Server-side growth audit form with Zod validation and Resend delivery.
+- Dedicated no-index thank-you page shown only after successful email delivery.
 - Honeypot field for basic automated-submission resistance.
 - Canonical metadata, Open Graph, Twitter cards, JSON-LD, sitemap, robots, and web manifest.
 - Reduced-motion support, visible focus states, semantic landmarks, and a skip link.
@@ -72,6 +73,7 @@ Visitor
   -> Zod validation + honeypot check
   -> Resend API
   -> Configured audit inbox
+  -> Thank-you page
 ```
 
 ## Routes
@@ -80,6 +82,7 @@ Visitor
 |---|---|---|
 | `/` | Canonical Jurivo Black Label website | Allowed |
 | `/black-label` | Legacy path; permanently redirects to `/` | Redirected |
+| `/thank-you` | Successful Growth Audit confirmation and next-step guidance | No-index |
 | `/executive-editorial` | Archived internal design reference | Disallowed in `robots.txt` |
 | `/modern-counsel` | Archived internal design reference | Disallowed in `robots.txt` |
 | `/sitemap.xml` | Canonical sitemap | Public |
@@ -114,7 +117,7 @@ Create `.env.local` from `.env.example`. Never commit `.env.local` or production
 
 | Variable | Required | Exposure | Description |
 |---|---:|---|---|
-| `RESEND_API_KEY` | For live forms | Server only | Resend API key used by the audit Server Action |
+| `RESEND_API_KEY` | For live forms | Server only | Sending-access Resend API key used by the audit Server Action |
 | `RESEND_FROM_EMAIL` | For live forms | Server only | Verified sender, for example `Jurivo Website <website@jurivo.co.za>` |
 | `AUDIT_TO_EMAIL` | For live forms | Server only | Inbox that receives qualified audit requests |
 | `NEXT_PUBLIC_STRATEGY_CALL_URL` | Recommended | Browser | Absolute booking URL; falls back to the audit section when omitted |
@@ -130,7 +133,7 @@ NEXT_PUBLIC_STRATEGY_CALL_URL=https://cal.com/your-team/strategy-call
 NEXT_PUBLIC_SITE_URL=https://jurivo.co.za
 ```
 
-Because variables prefixed with `NEXT_PUBLIC_` are embedded in the browser bundle, never use that prefix for secrets.
+Because variables prefixed with `NEXT_PUBLIC_` are embedded in the browser bundle, never use that prefix for secrets. Create a sending-access Resend key restricted to the verified sending domain where possible, and rotate any key that has been exposed outside the deployment environment.
 
 ## Available scripts
 
@@ -154,14 +157,14 @@ The form is rendered by `components/AuditForm.tsx` and submitted to the `submitA
 
 The server validates:
 
-- A complete website URL.
+- An optional website URL; when supplied it must be a complete HTTP or HTTPS address.
 - Contact name and law-firm name.
 - A valid work email address.
 - Primary practice area and growth priority.
 - The expected site or concept identifier.
 - An empty hidden company field used as a honeypot.
 
-On a valid submission, Resend sends a plain-text lead summary to `AUDIT_TO_EMAIL` and sets the visitor's address as `replyTo`. API failures return a generic user-safe error; secrets and provider details are not exposed to the client.
+On a valid submission, Resend sends a plain-text lead summary to `AUDIT_TO_EMAIL` and sets the visitor's address as `replyTo`. A firm without a website is identified explicitly in the email. Only a successful provider response redirects the visitor to `/thank-you`; validation, configuration, and delivery errors remain on the form with a user-safe recovery message.
 
 Before accepting production traffic, add provider-side rate limiting or an edge/WAF rule if submission volume or abuse risk warrants it. The honeypot is deliberately a lightweight first layer, not a complete anti-spam system.
 
@@ -222,6 +225,7 @@ app/
   page.tsx                      Canonical root-page export
   robots.ts                     Crawler policy metadata route
   sitemap.ts                    Sitemap metadata route
+  thank-you/page.tsx            Successful audit confirmation and next-step page
 components/
   AuditForm.tsx                 Interactive audit form
   BlackLabelNavigation.tsx      Desktop and mobile navigation
@@ -278,8 +282,10 @@ No database or persistent filesystem is required. Audit requests are delivered d
 - [ ] Confirm the final Jurivo domain and set `NEXT_PUBLIC_SITE_URL`.
 - [ ] Replace the placeholder strategy-call link.
 - [ ] Verify the Resend sending domain.
-- [ ] Configure the Resend API key, sender, and audit recipient.
+- [ ] Create a restricted sending-access Resend API key and configure it without committing it.
+- [ ] Configure the verified sender and audit recipient.
 - [ ] Submit a real audit request and verify delivery plus `replyTo` behaviour.
+- [ ] Confirm successful delivery redirects to `/thank-you` and failed delivery does not.
 - [ ] Confirm legal contact details and add privacy/POPIA copy where required.
 - [ ] Replace illustrative proof with approved case studies or testimonials when available.
 - [ ] Test social previews and search metadata against the production URL.

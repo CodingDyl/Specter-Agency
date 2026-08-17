@@ -2,6 +2,7 @@
 
 import { Resend } from "resend";
 import { z } from "zod";
+import { redirect } from "next/navigation";
 
 export type AuditFormState = {
   status: "idle" | "success" | "error";
@@ -10,7 +11,14 @@ export type AuditFormState = {
 
 const auditSchema = z.object({
   concept: z.enum(["Executive Editorial", "Modern Counsel", "Black Label", "Jurivo Website"]),
-  website: z.string().trim().url("Enter a complete website address, including https://").max(200),
+  website: z
+    .string()
+    .trim()
+    .max(200, "Website addresses must be 200 characters or fewer.")
+    .refine(
+      (value) => value.length === 0 || (/^https?:\/\//i.test(value) && URL.canParse(value)),
+      "Enter a complete website address, including https://, or leave this field blank.",
+    ),
   name: z.string().trim().min(2, "Enter your name.").max(100),
   firm: z.string().trim().min(2, "Enter your law firm.").max(140),
   email: z.string().trim().email("Enter a valid work email.").max(160),
@@ -63,7 +71,7 @@ export async function submitAudit(
     `Name: ${data.name}`,
     `Firm: ${data.firm}`,
     `Email: ${data.email}`,
-    `Website: ${data.website}`,
+    `Website: ${data.website || "No existing website"}`,
     `Practice area: ${data.practiceArea}`,
     `Growth priority: ${data.priority}`,
   ].join("\n");
@@ -81,11 +89,9 @@ export async function submitAudit(
       return { status: "error", message: "We could not send your request. Please try again." };
     }
 
-    return {
-      status: "success",
-      message: "Your audit request is in. We’ll review the firm’s digital presence before we contact you.",
-    };
   } catch {
     return { status: "error", message: "We could not send your request. Please try again." };
   }
+
+  redirect("/thank-you");
 }

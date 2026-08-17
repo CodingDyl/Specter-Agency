@@ -8,6 +8,17 @@ type Variant = "editorial" | "modern" | "black";
 
 const initialState: AuditFormState = { status: "idle", message: "" };
 
+function isCompleteHttpUrl(value: string) {
+  if (!value.trim()) return true;
+
+  try {
+    const url = new URL(value);
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
 const variantStyles: Record<Variant, { field: string; button: string; status: string }> = {
   editorial: {
     field: "border-[#8c8981] bg-transparent text-[#101112] placeholder:text-[#64625d] focus:border-[#692b35]",
@@ -42,12 +53,13 @@ export function AuditForm({
   const [website, setWebsite] = useState("");
   const styles = variantStyles[variant];
   const fieldClass = `min-h-12 w-full rounded-[4px] border px-4 py-3 text-base outline-none transition-colors duration-200 ${styles.field}`;
+  const websiteIsValid = isCompleteHttpUrl(website);
 
   if (twoStep && step === 1) {
     return (
       <div className="space-y-5">
         <label className="block text-sm font-semibold" htmlFor={`${variant}-website-step`}>
-          Current website
+          Current website <span className="font-normal opacity-70">(optional)</span>
         </label>
         <input
           id={`${variant}-website-step`}
@@ -58,17 +70,16 @@ export function AuditForm({
           value={website}
           onChange={(event) => setWebsite(event.target.value)}
           autoComplete="url"
-          required
         />
         <button
           type="button"
           onClick={() => setStep(2)}
-          disabled={!website.startsWith("http")}
+          disabled={!websiteIsValid}
           className={`flex min-h-12 w-full items-center justify-center gap-3 rounded-[4px] px-5 py-3 text-sm font-semibold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-45 ${styles.button}`}
         >
-          Analyse My Website <ArrowRight aria-hidden="true" size={16} />
+          Continue to Audit Request <ArrowRight aria-hidden="true" size={16} />
         </button>
-        <p className="text-sm leading-6 opacity-75">Step 1 of 2 · We’ll use this to prepare the audit.</p>
+        <p className="text-sm leading-6 opacity-75">Step 1 of 2 · Add a website if one exists, or continue without one.</p>
       </div>
     );
   }
@@ -95,7 +106,7 @@ export function AuditForm({
           <input className={fieldClass} type="email" name="email" autoComplete="email" required />
         </label>
         <label className="space-y-2 text-sm font-medium">
-          <span>Current website</span>
+          <span>Current website <span className="font-normal opacity-70">(optional)</span></span>
           <input
             className={fieldClass}
             type="url"
@@ -105,7 +116,6 @@ export function AuditForm({
             onChange={(event) => setWebsite(event.target.value)}
             placeholder="https://yourfirm.co.za"
             autoComplete="url"
-            required
           />
         </label>
         <label className="space-y-2 text-sm font-medium">

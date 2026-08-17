@@ -47,6 +47,7 @@ button {
   left: 1rem;
   top: 1rem;
   z-index: 100;
+  visibility: hidden;
   transform: translateY(-200%);
   background: #fff;
   color: #111;
@@ -54,6 +55,7 @@ button {
 }
 
 .skip-link:focus {
+  visibility: visible;
   transform: translateY(0);
 }
 
