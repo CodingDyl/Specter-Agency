@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   category: "Professional services",
   referrer: "origin-when-cross-origin",
   formatDetection: { email: false, address: false, telephone: false },
+  icons: {
+    icon: [{ url: "/logo.png", type: "image/png" }],
+    apple: [{ url: "/logo.png", type: "image/png" }],
+  },
   openGraph: {
     title: "Law Firm Websites & SEO South Africa | Jurivo",
     description: siteConfig.description,
@@ -27,7 +31,7 @@ export const metadata: Metadata = {
     locale: "en_ZA",
     url: "/",
     siteName: "Jurivo",
-    images: [{ url: siteConfig.socialImage, width: 1672, height: 941, alt: "Jurivo digital growth services for South African law firms" }],
+    images: [{ url: siteConfig.socialImage, width: siteConfig.socialImageWidth, height: siteConfig.socialImageHeight, alt: "Jurivo" }],
   },
   twitter: {
     card: "summary_large_image",

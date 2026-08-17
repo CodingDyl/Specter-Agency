@@ -32,7 +32,9 @@ export const siteConfig = {
   market: "South Africa",
   description:
     "Law firm websites, SEO, conversion optimisation and enquiry systems for established South African legal practices.",
-  socialImage: "/black-label-johannesburg-office.png",
+  socialImage: "/logo.png",
+  socialImageWidth: 1254,
+  socialImageHeight: 1254,
 } as const;
 
 export function absoluteUrl(pathname = "/") {
@@ -70,9 +72,9 @@ export function createPageMetadata({
       images: [
         {
           url: siteConfig.socialImage,
-          width: 1672,
-          height: 941,
-          alt: "Jurivo digital growth services for South African law firms",
+          width: siteConfig.socialImageWidth,
+          height: siteConfig.socialImageHeight,
+          alt: "Jurivo",
         },
       ],
     },
@@ -109,7 +111,7 @@ export const organizationJsonLd = {
       url: siteConfig.url,
       logo: {
         "@type": "ImageObject",
-        url: absoluteUrl("/icon.svg"),
+        url: absoluteUrl(siteConfig.socialImage),
       },
       description: siteConfig.description,
       areaServed: {

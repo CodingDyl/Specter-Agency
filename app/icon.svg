@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Jurivo">
-  <rect width="64" height="64" rx="4" fill="#090a0b"/>
-  <path d="M18 12h30v7h-8v22c0 8-5 13-14 13-6 0-10-2-13-6l6-6c2 3 4 4 7 4 4 0 6-2 6-6V19H18z" fill="#efece5"/>
-  <circle cx="47" cy="48" r="3" fill="#6a3038"/>
-</svg>
