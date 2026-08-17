@@ -33,7 +33,7 @@ export function AuditForm({
   compact = false,
 }: {
   variant: Variant;
-  concept: "Executive Editorial" | "Modern Counsel" | "Black Label" | "Specter Website";
+  concept: "Executive Editorial" | "Modern Counsel" | "Black Label" | "Jurivo Website";
   twoStep?: boolean;
   compact?: boolean;
 }) {

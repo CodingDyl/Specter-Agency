@@ -1,6 +1,6 @@
 # Black Label landing page
 
-- Scope: `/`; visitor mode: Persuade. This is the canonical Specter homepage and selected brand direction.
+- Scope: `/`; visitor mode: Persuade. This is the canonical Jurivo homepage and selected brand direction.
 - Audience/job: established South African law-firm decision-makers who expect a distinctive digital position without luxury cliché.
 - Primary action: request a Growth Audit. Secondary action: strategy call.
 - Proof/content: problem rows, expandable system expertise, client-journey line, audit scope, complete lead form, and no fabricated proof.

@@ -16,11 +16,11 @@ The primary audience is decision-makers at established South African law firms e
 
 ## Product Purpose
 
-Specter is a digital design and growth agency for South African law firms. The marketing site must help qualified firms understand Specter's integrated offer and request a no-obligation digital growth audit. A secondary path allows visitors to book a strategy call.
+Jurivo is a digital design and growth agency for South African law firms. The marketing site must help qualified firms understand Jurivo's integrated offer and request a no-obligation digital growth audit. A secondary path allows visitors to book a strategy call.
 
 ## Positioning
 
-Specter combines law-firm positioning, web experience, search visibility, conversion optimisation, tracking, and enquiry automation into one measurable client-acquisition system rather than selling a website as an isolated deliverable.
+Jurivo combines law-firm positioning, web experience, search visibility, conversion optimisation, tracking, and enquiry automation into one measurable client-acquisition system rather than selling a website as an isolated deliverable.
 
 ## Operating Context
 
@@ -36,7 +36,7 @@ Visitors are likely comparing professional-service partners while protecting an 
 
 ## Brand Commitments
 
-- Working name: Specter.
+- Brand name: Jurivo.
 - Market: South Africa; copy uses South African English and `.co.za` examples.
 - Voice: precise, commercially intelligent, controlled, and authoritative.
 - Do not resemble a generic web-design agency, generic SaaS product, startup, traditional law firm, or television-fandom property.

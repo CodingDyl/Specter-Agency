@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Specter — Digital Growth for Law Firms",
-    short_name: "Specter",
+    name: "Jurivo — Digital Growth for Law Firms",
+    short_name: "Jurivo",
     description: "Digital growth consultancy for established South African law firms.",
     start_url: "/",
     display: "standalone",

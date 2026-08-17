@@ -7,8 +7,8 @@ import { DiagnosticDisclosure } from "@/components/DiagnosticDisclosure";
 import { BlackLabelMotion, Reveal } from "@/components/MotionSystem";
 
 export const metadata: Metadata = {
-  title: { absolute: "Specter — Digital Growth for South African Law Firms" },
-  description: "Specter helps established South African law firms generate more qualified enquiries through high-converting websites, search visibility and smarter digital systems.",
+  title: { absolute: "Jurivo — Digital Growth for South African Law Firms" },
+  description: "Jurivo helps established South African law firms generate more qualified enquiries through high-converting websites, search visibility and smarter digital systems.",
   alternates: { canonical: "/" },
 };
 
@@ -28,6 +28,7 @@ const expertise = [
 
 export default function BlackLabelPage() {
   const strategyUrl = process.env.NEXT_PUBLIC_STRATEGY_CALL_URL || "#audit";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://jurivo.co.za";
   const heroAlt = "A dark, glass-walled executive office overlooking a city at blue hour";
   const { props: desktopHero } = getImageProps({
     src: "/black-label-johannesburg-office.png",
@@ -48,8 +49,8 @@ export default function BlackLabelPage() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: "Specter",
-    url: "https://specter.co.za",
+    name: "Jurivo",
+    url: siteUrl,
     description: "Digital growth consultancy for established South African law firms.",
     areaServed: { "@type": "Country", name: "South Africa" },
     serviceType: ["Web experience", "Search visibility", "Conversion optimisation", "Enquiry automation"],
@@ -85,7 +86,7 @@ export default function BlackLabelPage() {
                 Your firm didn’t build its reputation by looking like everyone else.
               </h1>
               <div className="mt-9 flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
-                <p className="pretty max-w-[62ch] text-base leading-7 text-[#c1c0bc] sm:text-lg">Specter helps established South African law firms turn their reputation into a stronger digital presence, greater search visibility and more qualified enquiries.</p>
+                <p className="pretty max-w-[62ch] text-base leading-7 text-[#c1c0bc] sm:text-lg">Jurivo helps established South African law firms turn their reputation into a stronger digital presence, greater search visibility and more qualified enquiries.</p>
                 <div className="flex shrink-0 flex-wrap gap-5">
                   <a href="#audit" className="flex min-h-12 items-center gap-3 rounded-[2px] bg-[#efece5] px-6 text-sm font-semibold text-[#090a0b] transition-colors hover:bg-white">
                     Request Your Growth Audit <ArrowRight size={16} aria-hidden="true" />
@@ -122,7 +123,7 @@ export default function BlackLabelPage() {
 
           <section id="expertise" className="bg-[#090a0b] text-[#efece5]">
             <div className="mx-auto max-w-[1320px] px-5 py-20 sm:px-8 sm:py-28">
-              <h2 className="balanced max-w-4xl font-[family-name:var(--font-bodoni)] text-[clamp(3rem,6vw,5.6rem)] leading-[.94] tracking-[-.035em]">Specter builds the system behind the enquiry.</h2>
+              <h2 className="balanced max-w-4xl font-[family-name:var(--font-bodoni)] text-[clamp(3rem,6vw,5.6rem)] leading-[.94] tracking-[-.035em]">Jurivo builds the system behind the enquiry.</h2>
               <div className="mt-16 border-t border-[#343638]">
                 {expertise.map(([title, body], index) => (
                   <details key={title} className="group border-b border-[#343638] py-2">
@@ -161,7 +162,7 @@ export default function BlackLabelPage() {
             <div className="mx-auto grid max-w-[1320px] gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[.8fr_1.2fr]">
               <div>
                 <h2 className="balanced font-[family-name:var(--font-bodoni)] text-[clamp(3rem,5vw,4.8rem)] leading-[.96] tracking-[-.03em]">We start by finding what others overlook.</h2>
-                <p className="mt-7 max-w-lg leading-7 text-[#565650]">Before recommending a redesign, campaign or SEO strategy, Specter examines the full digital journey surrounding your firm.</p>
+                <p className="mt-7 max-w-lg leading-7 text-[#565650]">Before recommending a redesign, campaign or SEO strategy, Jurivo examines the full digital journey surrounding your firm.</p>
                 <a href="#audit" className="mt-9 inline-flex min-h-12 items-center gap-3 rounded-[2px] bg-[#090a0b] px-6 text-sm font-semibold text-[#efece5] transition-colors hover:bg-[#6a3038]">Audit My Firm <ArrowRight size={16} aria-hidden="true" /></a>
               </div>
               <div className="grid sm:grid-cols-2">
@@ -181,7 +182,7 @@ export default function BlackLabelPage() {
                 <h2 className="balanced font-[family-name:var(--font-bodoni)] text-[clamp(3rem,5vw,4.8rem)] leading-[.96] tracking-[-.03em]">Show us where you are today.</h2>
                 <p className="mt-7 max-w-md leading-7 text-[#a4a5a3]">No obligation. No generic sales presentation.</p>
               </div>
-              <AuditForm variant="black" concept="Specter Website" />
+              <AuditForm variant="black" concept="Jurivo Website" />
             </div>
           </section>
 
@@ -196,7 +197,7 @@ export default function BlackLabelPage() {
 
         <footer className="bg-[#090a0b] px-5 pb-28 text-[#a4a5a3] sm:px-8">
           <div className="mx-auto flex max-w-[1320px] flex-col justify-between gap-8 border-t border-[#343638] pt-7 text-sm sm:flex-row">
-            <span className="tracking-[.3em] text-[#efece5]">SPECTER</span>
+            <span className="tracking-[.3em] text-[#efece5]">JURIVO</span>
             <span>Digital growth for South African law firms.</span>
             <span>South Africa</span>
           </div>

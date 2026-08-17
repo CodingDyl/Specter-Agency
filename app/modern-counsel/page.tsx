@@ -7,7 +7,7 @@ import { SiteSwitcher } from "@/components/SiteSwitcher";
 
 export const metadata: Metadata = {
   title: "Modern Counsel",
-  description: "A structured, analytical direction for Specter, digital growth consultancy for South African law firms.",
+  description: "A structured, analytical direction for Jurivo, digital growth consultancy for South African law firms.",
 };
 
 const modules = [
@@ -26,7 +26,7 @@ export default function ModernCounselPage() {
     <div className="concept-shell bg-[#f6f7f5] font-[family-name:var(--font-manrope)] text-[#121a23] [--focus:#274a5d]">
       <header className="sticky top-0 z-40 border-b border-[#dde2e3] bg-[#f6f7f5]/95 backdrop-blur-md">
         <nav aria-label="Primary navigation" className="mx-auto flex min-h-20 max-w-[1240px] items-center justify-between gap-6 px-5 sm:px-8">
-          <Link href="/" className="text-[13px] font-bold tracking-[.28em]">SPECTER</Link>
+          <Link href="/" className="text-[13px] font-bold tracking-[.28em]">JURIVO</Link>
           <div className="hidden items-center gap-7 text-[13px] font-semibold text-[#53606a] lg:flex">
             <a href="#services" className="transition-colors hover:text-[#274a5d]">Services</a>
             <a href="#approach" className="transition-colors hover:text-[#274a5d]">Approach</a>
@@ -45,7 +45,7 @@ export default function ModernCounselPage() {
                 Turn your firm’s digital presence into measurable growth.
               </h1>
               <p className="pretty mt-8 max-w-[62ch] text-base leading-7 text-[#53606a] sm:text-lg">
-                Specter combines strategy, websites, SEO, conversion optimisation and automation to help established South African law firms generate more qualified opportunities.
+                Jurivo combines strategy, websites, SEO, conversion optimisation and automation to help established South African law firms generate more qualified opportunities.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-6">
                 <a href="#audit" className="flex min-h-12 items-center gap-3 rounded-[4px] bg-[#121a23] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#274a5d]">
@@ -59,7 +59,7 @@ export default function ModernCounselPage() {
             <Reveal className="relative rounded-lg border border-[#c7d0d2] bg-[#fcfcfa] p-6 sm:p-8">
               <div className="flex items-center justify-between border-b border-[#dde2e3] pb-5">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[.16em] text-[#65727a]">Illustrative Specter audit</p>
+                  <p className="text-[10px] font-bold uppercase tracking-[.16em] text-[#65727a]">Illustrative Jurivo audit</p>
                   <h2 className="mt-2 font-[family-name:var(--font-dm-serif)] text-3xl">Digital Growth Score</h2>
                 </div>
                 <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#9cabad] font-[family-name:var(--font-dm-serif)] text-2xl">54</span>
@@ -92,7 +92,7 @@ export default function ModernCounselPage() {
           <div className="grid gap-14 lg:grid-cols-[.85fr_1.15fr] lg:items-start">
             <div>
               <h2 className="balanced font-[family-name:var(--font-dm-serif)] text-[clamp(2.8rem,5vw,4.8rem)] leading-[.98] tracking-[-.03em]">Your website isn’t the strategy.</h2>
-              <p className="mt-7 max-w-lg leading-7 text-[#53606a]">Specter improves the entire path between someone searching for legal help and choosing to speak with your firm.</p>
+              <p className="mt-7 max-w-lg leading-7 text-[#53606a]">Jurivo improves the entire path between someone searching for legal help and choosing to speak with your firm.</p>
             </div>
             <Reveal className="rounded-lg border border-[#c7d0d2] bg-[#fcfcfa] p-6 sm:p-9">
               <ol className="space-y-0">
@@ -130,7 +130,7 @@ export default function ModernCounselPage() {
         <section id="measure" className="mx-auto grid max-w-[1240px] gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[.8fr_1.2fr]">
           <div>
             <h2 className="balanced font-[family-name:var(--font-dm-serif)] text-[clamp(2.8rem,5vw,4.7rem)] leading-[.98] tracking-[-.03em]">Proof starts with knowing what matters.</h2>
-            <p className="mt-7 max-w-md leading-7 text-[#53606a]">No invented growth claims. Specter creates the measurement foundation your firm needs to see what is actually working.</p>
+            <p className="mt-7 max-w-md leading-7 text-[#53606a]">No invented growth claims. Jurivo creates the measurement foundation your firm needs to see what is actually working.</p>
           </div>
           <div className="grid sm:grid-cols-2">
             {measures.map((item, index) => (
@@ -157,7 +157,7 @@ export default function ModernCounselPage() {
 
       <footer className="bg-[#121a23] px-5 pb-28 pt-14 text-white sm:px-8">
         <div className="mx-auto flex max-w-[1240px] flex-col justify-between gap-8 border-t border-[#36424b] pt-7 text-sm text-[#acb5ba] sm:flex-row">
-          <span className="font-bold tracking-[.28em] text-white">SPECTER</span>
+          <span className="font-bold tracking-[.28em] text-white">JURIVO</span>
           <span>Growth infrastructure for South African law firms.</span>
           <span>Modern Counsel / 02</span>
         </div>

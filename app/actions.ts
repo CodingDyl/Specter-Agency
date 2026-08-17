@@ -9,7 +9,7 @@ export type AuditFormState = {
 };
 
 const auditSchema = z.object({
-  concept: z.enum(["Executive Editorial", "Modern Counsel", "Black Label", "Specter Website"]),
+  concept: z.enum(["Executive Editorial", "Modern Counsel", "Black Label", "Jurivo Website"]),
   website: z.string().trim().url("Enter a complete website address, including https://").max(200),
   name: z.string().trim().min(2, "Enter your name.").max(100),
   firm: z.string().trim().min(2, "Enter your law firm.").max(140),

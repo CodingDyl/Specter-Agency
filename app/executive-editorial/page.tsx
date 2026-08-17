@@ -7,7 +7,7 @@ import { SiteSwitcher } from "@/components/SiteSwitcher";
 
 export const metadata: Metadata = {
   title: "Executive Editorial",
-  description: "A restrained editorial direction for Specter, digital growth consultancy for South African law firms.",
+  description: "A restrained editorial direction for Jurivo, digital growth consultancy for South African law firms.",
 };
 
 const observations = [
@@ -37,7 +37,7 @@ export default function ExecutiveEditorialPage() {
     <div className="concept-shell bg-[#f4f1ea] font-[family-name:var(--font-instrument)] text-[#101112] [--focus:#692b35]">
       <header className="border-b border-[#d8d3c9]">
         <nav aria-label="Primary navigation" className="mx-auto flex min-h-20 max-w-[1200px] items-center justify-between gap-6 px-5 sm:px-8">
-          <Link href="/" className="text-[13px] font-semibold tracking-[.32em]">SPECTER</Link>
+          <Link href="/" className="text-[13px] font-semibold tracking-[.32em]">JURIVO</Link>
           <div className="hidden items-center gap-7 text-[13px] font-medium lg:flex">
             <a href="#services" className="transition-colors hover:text-[#692b35]">How We Help</a>
             <a href="#approach" className="transition-colors hover:text-[#692b35]">Our Approach</a>
@@ -57,7 +57,7 @@ export default function ExecutiveEditorialPage() {
               Your reputation is established. Your digital presence should prove it.
             </h1>
             <p className="pretty mt-8 max-w-[62ch] text-base leading-7 text-[#494945] sm:text-lg">
-              Specter helps ambitious law firms generate more qualified enquiries through high-converting websites, search visibility and smarter digital systems.
+              Jurivo helps ambitious law firms generate more qualified enquiries through high-converting websites, search visibility and smarter digital systems.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-4">
               <a href="#audit" className="flex min-h-12 items-center gap-3 bg-[#101112] px-6 text-sm font-semibold text-[#f4f1ea] transition-colors hover:bg-[#692b35]">
@@ -72,7 +72,7 @@ export default function ExecutiveEditorialPage() {
 
           <Reveal className="self-center border border-[#bdb8ae] bg-[#e9e5dc] p-6 sm:p-8">
             <div className="mb-12 flex items-center justify-between border-b border-[#cbc5ba] pb-4 text-[10px] uppercase tracking-[.18em] text-[#692b35]">
-              <span>Specter / Initial review</span>
+              <span>Jurivo / Initial review</span>
               <span>01</span>
             </div>
             <h2 className="max-w-xs font-[family-name:var(--font-cormorant)] text-4xl leading-none tracking-[-.025em]">Start with your website.</h2>
@@ -155,7 +155,7 @@ export default function ExecutiveEditorialPage() {
         </section>
 
         <section id="approach" className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-28">
-          <h2 className="font-[family-name:var(--font-cormorant)] text-[clamp(2.7rem,5vw,4.5rem)] leading-none tracking-[-.03em]">How Specter works.</h2>
+          <h2 className="font-[family-name:var(--font-cormorant)] text-[clamp(2.7rem,5vw,4.5rem)] leading-none tracking-[-.03em]">How Jurivo works.</h2>
           <div className="mt-14 grid border-t border-[#bdb8ae] sm:grid-cols-2 lg:grid-cols-4">
             {processSteps.map(([title, body], index) => (
               <article key={title} className={`py-7 sm:px-6 ${index ? "border-t border-[#bdb8ae] sm:border-l sm:border-t-0" : ""}`}>
@@ -180,7 +180,7 @@ export default function ExecutiveEditorialPage() {
 
       <footer className="bg-[#101112] px-5 pb-28 pt-14 text-[#f4f1ea] sm:px-8">
         <div className="mx-auto flex max-w-[1200px] flex-col justify-between gap-8 border-t border-[#343638] pt-7 text-sm text-[#aaa9a3] sm:flex-row">
-          <span className="tracking-[.28em] text-[#f4f1ea]">SPECTER</span>
+          <span className="tracking-[.28em] text-[#f4f1ea]">JURIVO</span>
           <span>Digital growth for South African law firms.</span>
           <span>Executive Editorial / 01</span>
         </div>

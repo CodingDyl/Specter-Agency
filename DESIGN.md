@@ -1,5 +1,5 @@
 ---
-name: "Specter Black Label"
+name: "Jurivo Black Label"
 description: "Cinematic professional authority for a South African legal-growth consultancy."
 colors:
   carbon: "#090a0b"
@@ -95,13 +95,13 @@ components:
     height: "48px"
 ---
 
-# Design System: Specter Black Label
+# Design System: Jurivo Black Label
 
 ## Overview
 
 **Creative North Star: "The Boardroom After Dark"**
 
-Specter Black Label is the selected, canonical visual world. It turns the atmosphere of a sophisticated Johannesburg office at blue hour into a serious professional-services system: carbon darkness, warm paper, precise rules, controlled wine, and editorial serif scale. The feeling is commanding and memorable without drifting into luxury theatre.
+Jurivo Black Label is the selected, canonical visual world. It turns the atmosphere of a sophisticated Johannesburg office at blue hour into a serious professional-services system: carbon darkness, warm paper, precise rules, controlled wine, and editorial serif scale. The feeling is commanding and memorable without drifting into luxury theatre.
 
 The page moves through dark and light fields in a deliberate rhythm. Cinematic imagery establishes authority once; typography and evidence-led structure carry the rest. The visual system rejects generic agency gradients, legal clichés, gold, fake proof, and feature-card scaffolds.
 
@@ -134,7 +134,7 @@ Black Label uses a near-black and warm-paper polarity, with bone for action and 
 - **Copy Paper**: body text on warm paper.
 - **Dark and Light Rules**: one-pixel structure appropriate to their surface.
 
-**The No Gold Rule.** Gold turns cinematic authority into a luxury cliché; it is never part of Specter.
+**The No Gold Rule.** Gold turns cinematic authority into a luxury cliché; it is never part of Jurivo.
 
 **The Wine Rarity Rule.** Wine should remain a deliberate signal, not a large surface or general decoration.
 

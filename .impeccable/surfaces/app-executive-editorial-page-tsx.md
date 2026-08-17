@@ -8,7 +8,7 @@ related_targets: ["components/AuditForm.tsx","components/MotionSystem.tsx"]
 # Executive Editorial landing page
 
 - Scope: `/executive-editorial`; visitor mode: Persuade.
-- Audience/job: established South African law-firm decision-makers deciding whether Specter has the authority and commercial intelligence to diagnose their digital presence.
+- Audience/job: established South African law-firm decision-makers deciding whether Jurivo has the authority and commercial intelligence to diagnose their digital presence.
 - Primary action: request a Growth Audit. Secondary action: strategy call.
 - Proof/content: interactive website prompt, legal-practice context, four connected growth levers, illustrative audit scope, process, and no fabricated client claims.
 - Direction: warm-paper editorial authority with sparse wine detail, serif statements, thin rules, and a 58/42 diagnostic hero.
