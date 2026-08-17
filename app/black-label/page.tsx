@@ -4,13 +4,17 @@ import { ArrowRight, Plus } from "lucide-react";
 import { AuditForm } from "@/components/AuditForm";
 import { BlackLabelNavigation } from "@/components/BlackLabelNavigation";
 import { DiagnosticDisclosure } from "@/components/DiagnosticDisclosure";
+import { JsonLd } from "@/components/JsonLd";
 import { BlackLabelMotion, Reveal } from "@/components/MotionSystem";
+import { absoluteUrl, createPageMetadata, siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
-  title: { absolute: "Jurivo — Digital Growth for South African Law Firms" },
-  description: "Jurivo helps established South African law firms generate more qualified enquiries through high-converting websites, search visibility and smarter digital systems.",
-  alternates: { canonical: "/" },
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "Law Firm Websites & SEO South Africa | Jurivo",
+  description:
+    "Jurivo builds law firm websites, SEO, conversion journeys and enquiry systems for established South African legal practices. Request a growth audit.",
+  pathname: "/",
+  absoluteTitle: true,
+});
 
 const diagnostics = [
   ["01", "Visibility", "Be present where active legal demand already exists."],
@@ -26,8 +30,67 @@ const expertise = [
   ["Automation", "Measured handoffs and follow-up systems that protect every qualified opportunity."],
 ];
 
+const frequentlyAskedQuestions = [
+  {
+    question: "What does Jurivo do for South African law firms?",
+    answer:
+      "Jurivo is a specialist digital design and growth agency for established South African law firms. It connects positioning, website strategy, search visibility, conversion optimisation, analytics and enquiry automation into one measurable system.",
+  },
+  {
+    question: "What is included in a Jurivo digital growth audit?",
+    answer:
+      "The audit reviews the firm’s market positioning, website experience, practice-area visibility, search presence, conversion paths, analytics and enquiry handling. It is a practical diagnostic review, not an instant automated score or a generic sales presentation.",
+  },
+  {
+    question: "Does a law firm need an existing website to request an audit?",
+    answer:
+      "No. South African law firms can request a Jurivo growth audit without an existing website. The review can start from the firm’s commercial goals, priority practice areas and current approach to generating enquiries.",
+  },
+  {
+    question: "Does Jurivo work with law firms throughout South Africa?",
+    answer:
+      "Yes. Jurivo’s services are designed for established legal practices across South Africa. Strategy and delivery are shaped around each firm’s market, practice areas, reputation and commercial priorities.",
+  },
+  {
+    question: "Is Jurivo a law firm?",
+    answer:
+      "No. Jurivo is a digital design and growth agency that serves law firms. It does not provide legal advice or legal representation.",
+  },
+] as const;
+
+const homePageJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}/#webpage`,
+      url: siteConfig.url,
+      name: "Law Firm Websites & SEO South Africa | Jurivo",
+      description:
+        "Law firm websites, SEO, conversion optimisation and enquiry systems for established South African legal practices.",
+      inLanguage: siteConfig.language,
+      isPartOf: { "@id": `${siteConfig.url}/#website` },
+      about: { "@id": `${siteConfig.url}/#organization` },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/black-label-johannesburg-office.png"),
+        width: 1672,
+        height: 941,
+      },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${siteConfig.url}/#frequently-asked-questions`,
+      mainEntity: frequentlyAskedQuestions.map(({ question, answer }) => ({
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: { "@type": "Answer", text: answer },
+      })),
+    },
+  ],
+};
+
 export default function BlackLabelPage() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://jurivo.co.za";
   const heroAlt = "A dark, glass-walled executive office overlooking a city at blue hour";
   const { props: desktopHero } = getImageProps({
     src: "/black-label-johannesburg-office.png",
@@ -45,20 +108,10 @@ export default function BlackLabelPage() {
     sizes: "100vw",
     fetchPriority: "high",
   });
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: "Jurivo",
-    url: siteUrl,
-    description: "Digital growth consultancy for established South African law firms.",
-    areaServed: { "@type": "Country", name: "South Africa" },
-    serviceType: ["Web experience", "Search visibility", "Conversion optimisation", "Enquiry automation"],
-  };
-
   return (
     <BlackLabelMotion>
       <div className="concept-shell bg-[#090a0b] font-[family-name:var(--font-instrument)] text-[#efece5] [--focus:#efece5]">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+        <JsonLd data={homePageJsonLd} />
         <main id="main-content">
         <section className="black-hero relative isolate min-h-[850px] overflow-hidden">
           <div className="black-hero-media absolute inset-0 -z-20 overflow-hidden">
@@ -119,6 +172,31 @@ export default function BlackLabelPage() {
                 <p className="font-[family-name:var(--font-bodoni)] text-[clamp(3.3rem,7vw,6rem)] leading-[.95] tracking-[-.035em]">Reputation gets you considered.</p>
                 <p className="mt-4 font-[family-name:var(--font-bodoni)] text-[clamp(3.3rem,7vw,6rem)] leading-[.95] tracking-[-.035em] text-[#6a3038]">Positioning gets you chosen.</p>
               </Reveal>
+            </div>
+          </section>
+
+          <section id="faq" className="border-t border-[#cbc6bc] bg-[#f3f0e9] text-[#090a0b]">
+            <div className="mx-auto grid max-w-[1320px] gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[.72fr_1.28fr]">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[.2em] text-[#6a3038]">Clear answers</p>
+                <h2 className="balanced mt-5 font-[family-name:var(--font-bodoni)] text-[clamp(3rem,5vw,4.8rem)] leading-[.96] tracking-[-.03em]">
+                  Digital growth for law firms, defined precisely.
+                </h2>
+                <p className="mt-7 max-w-md leading-7 text-[#565650]">
+                  Jurivo serves established South African legal practices. It is a specialist digital growth agency, not a law firm.
+                </p>
+              </div>
+              <div className="border-t border-[#9f9d96]">
+                {frequentlyAskedQuestions.map(({ question, answer }) => (
+                  <details key={question} className="group border-b border-[#cbc6bc] py-2">
+                    <summary className="flex min-h-20 cursor-pointer list-none items-center justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
+                      <h3 className="font-[family-name:var(--font-bodoni)] text-2xl leading-tight sm:text-3xl">{question}</h3>
+                      <Plus className="shrink-0 transition-transform duration-300 group-open:rotate-45" size={20} aria-hidden="true" />
+                    </summary>
+                    <p className="max-w-[68ch] pb-7 leading-7 text-[#565650]">{answer}</p>
+                  </details>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -214,7 +292,7 @@ export default function BlackLabelPage() {
           <div className="mx-auto flex max-w-[1320px] flex-col justify-between gap-8 border-t border-[#343638] pt-7 text-sm sm:flex-row">
             <span className="tracking-[.3em] text-[#efece5]">JURIVO</span>
             <span>Digital growth for South African law firms.</span>
-            <span>South Africa</span>
+            <a className="text-[#efece5] underline decoration-[#6a3038] underline-offset-4" href="/services/law-firm-seo-south-africa">Law firm SEO South Africa</a>
           </div>
         </footer>
       </div>

@@ -30,7 +30,9 @@ The selected visual direction is **Black Label**, internally described as **The 
 - Accessible desktop navigation and keyboard-operable mobile menu.
 - Expandable diagnostic and expertise disclosures.
 - GSAP and Motion-powered reveal, journey, and score animations.
-- Server-side growth audit form with Zod validation and Resend delivery.
+- Server-side Growth Audit and strategy-call forms with Zod validation, durable Supabase storage, attribution capture, and best-effort Resend notifications.
+- Protected owner workspace at `/admin` for the pipeline, journey history, quotes, agreements, projects, hosting, maintenance, and recurring revenue.
+- Database-enforced quote numbering, line totals, VAT totals, agreement numbering, timestamps, constraints, and Row Level Security.
 - Dedicated no-index thank-you page shown only after successful email delivery.
 - Honeypot field for basic automated-submission resistance.
 - Canonical metadata, Open Graph, Twitter cards, JSON-LD, sitemap, robots, and web manifest.
@@ -48,6 +50,7 @@ The selected visual direction is **Black Label**, internally described as **The 
 | Icons | Lucide React | Lightweight interface icons |
 | Forms | React Server Actions, Zod | Typed submission handling and server-side validation |
 | Email | Resend | Growth audit notification delivery |
+| Data and auth | Supabase Postgres, Auth, RLS | Lead intake, CRM, commercial documents, delivery records, recurring services, and one-account admin access |
 | Language | TypeScript | Static typing across application and configuration code |
 | Quality | ESLint, Next.js production build | Static analysis, type checking, and build verification |
 
@@ -71,9 +74,15 @@ Visitor
   -> Growth audit form
   -> Server Action
   -> Zod validation + honeypot check
-  -> Resend API
-  -> Configured audit inbox
+  -> Supabase write-only intake
+  -> Postgres trigger normalises firm, contact, enquiry, opportunity and journey event
+  -> Best-effort Resend notification
   -> Thank-you page
+
+Owner
+  -> /admin/login
+  -> Supabase Auth + admin role check
+  -> Pipeline -> quote -> agreement -> project -> recurring service
 ```
 
 ## Routes
@@ -85,6 +94,12 @@ Visitor
 | `/thank-you` | Successful Growth Audit confirmation and next-step guidance | No-index |
 | `/strategy-call` | High-intent website strategy brief and scheduling path | Allowed |
 | `/strategy-call/received` | Email follow-up confirmation when no calendar is configured | No-index |
+| `/admin/login` | Restricted owner sign-in | No-index and disallowed |
+| `/admin` | Commercial overview and journey timeline | Protected; no-index and disallowed |
+| `/admin/pipeline` | Opportunity stages, values, probabilities, next actions, and due dates | Protected; no-index and disallowed |
+| `/admin/quotes` | Quote register, builder, and printable quote views | Protected; no-index and disallowed |
+| `/admin/agreements` | Agreement register, editable draft builder, and printable views | Protected; no-index and disallowed |
+| `/admin/projects` | Delivery portfolio and recurring service ledger | Protected; no-index and disallowed |
 | `/executive-editorial` | Archived internal design reference | Disallowed in `robots.txt` |
 | `/modern-counsel` | Archived internal design reference | Disallowed in `robots.txt` |
 | `/sitemap.xml` | Canonical sitemap | Public |
@@ -97,7 +112,8 @@ Visitor
 
 - Node.js 20.9 or newer.
 - npm 10 or newer.
-- A Resend account and verified sender domain for live audit delivery.
+- A Supabase project for durable lead storage and admin authentication.
+- A Resend account and verified sender domain for optional lead-notification emails.
 
 ### Installation
 
@@ -124,7 +140,12 @@ Create `.env.local` from `.env.example`. Never commit `.env.local` or production
 | `AUDIT_TO_EMAIL` | For live forms | Server only | Inbox that receives qualified audit requests |
 | `STRATEGY_TO_EMAIL` | Optional | Server only | Inbox for high-intent strategy briefs; falls back to `AUDIT_TO_EMAIL` |
 | `NEXT_PUBLIC_STRATEGY_CALL_URL` | Recommended | Browser | Absolute booking URL opened after a strategy brief is delivered |
-| `NEXT_PUBLIC_SITE_URL` | Recommended | Browser/build | Public origin used for canonical metadata, structured data, sitemap, and robots; defaults to `https://jurivo.co.za` |
+| `NEXT_PUBLIC_SITE_URL` | Recommended | Browser/build | Canonical production origin used for metadata, structured data, sitemap, and robots; set to `https://www.jurivo.co.za` |
+| `GOOGLE_SITE_VERIFICATION` | Optional | Server/build | Google Search Console HTML verification token |
+| `BING_SITE_VERIFICATION` | Optional | Server/build | Bing Webmaster Tools HTML verification token |
+| `NEXT_PUBLIC_SUPABASE_URL` | Required | Browser/server | Supabase project API URL |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Required | Browser/server | Publishable key protected by database RLS; this is not a secret |
+| `DATABASE_URL` | Optional | Local tooling only | Direct Postgres connection string. Never expose it to the browser or commit the password |
 
 Example:
 
@@ -134,7 +155,10 @@ RESEND_FROM_EMAIL=Jurivo Website <website@yourdomain.co.za>
 AUDIT_TO_EMAIL=hello@yourdomain.co.za
 STRATEGY_TO_EMAIL=hello@yourdomain.co.za
 NEXT_PUBLIC_STRATEGY_CALL_URL=https://cal.com/your-team/strategy-call
-NEXT_PUBLIC_SITE_URL=https://jurivo.co.za
+NEXT_PUBLIC_SITE_URL=https://www.jurivo.co.za
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xxxxxxxxx
+DATABASE_URL=postgresql://postgres:[YOUR-PASSWORD]@db.your-project.supabase.co:5432/postgres
 ```
 
 Because variables prefixed with `NEXT_PUBLIC_` are embedded in the browser bundle, never use that prefix for secrets. Create a sending-access Resend key restricted to the verified sending domain where possible, and rotate any key that has been exposed outside the deployment environment.
@@ -168,7 +192,7 @@ The server validates:
 - The expected site or concept identifier.
 - An empty hidden company field used as a honeypot.
 
-On a valid submission, Resend sends a plain-text lead summary to `AUDIT_TO_EMAIL` and sets the visitor's address as `replyTo`. A firm without a website is identified explicitly in the email. Only a successful provider response redirects the visitor to `/thank-you`; validation, configuration, and delivery errors remain on the form with a user-safe recovery message.
+On a valid submission, the Server Action first creates an immutable `lead_submissions` record. A database trigger normalises it into a firm, contact, enquiry, opportunity, and initial journey event. The visitor redirects to `/thank-you` only after this durable write succeeds. Resend then sends a best-effort notification when configured; an email-provider outage no longer discards a valid lead. A firm without a website is accepted and represented explicitly.
 
 ## Strategy-call workflow
 
@@ -176,7 +200,39 @@ Every “Book a Strategy Call” action opens `/strategy-call`, a separate high-
 
 The strategy brief captures contact details, an optional website, priority practice area, project need, desired start, decision role, investment readiness and the reason the project has become urgent. Resend delivers it to `STRATEGY_TO_EMAIL`, falling back to `AUDIT_TO_EMAIL`, and uses the visitor's work email as `replyTo`.
 
-After successful delivery, a valid `NEXT_PUBLIC_STRATEGY_CALL_URL` takes the visitor to the scheduling provider. When no valid calendar URL is configured, the visitor goes to `/strategy-call/received`, which truthfully confirms that Jurivo will arrange the conversation by email. Delivery failures remain on the form and never imply that a call was booked.
+After successful database storage, a valid `NEXT_PUBLIC_STRATEGY_CALL_URL` takes the visitor to the scheduling provider. When no valid calendar URL is configured, the visitor goes to `/strategy-call/received`, which truthfully confirms that Jurivo will arrange the conversation by email. Storage failures remain on the form and never imply that a call was booked.
+
+## Supabase CRM and admin setup
+
+The schema is migration-driven under `supabase/migrations/` and is intentionally reusable by a future management application. The public website can only insert a validated lead intake record. Anonymous users cannot read, update, or delete CRM data. Authenticated users still receive no CRM access unless their `profiles.role` is `admin`.
+
+The model stores useful operational data beyond the original forms:
+
+- Original submission payload, landing page, referrer, and UTM attribution.
+- Firm, primary contact, lead source, practice area, commercial need, urgency, decision role, and investment readiness.
+- Opportunity stage, estimated value, close probability, expected close, next action, due date, and lost reason.
+- Append-only journey events and follow-up tasks.
+- Quotes, itemised scope, issue/expiry dates, VAT, totals, status, and linked opportunity.
+- Agreement drafts, client signatory, effective date, and signature status.
+- Project scope, budget, delivery status, dates, and project URL.
+- Hosting, maintenance, SEO, support, billing interval, recurring amount, provider, and renewal date.
+
+### Create the single admin account
+
+1. In Supabase Dashboard, open **Authentication → Users → Add user** and create the owner account with a strong password.
+2. Confirm the trigger created a matching row in `public.profiles`.
+3. Promote only that address in the SQL editor:
+
+```sql
+update public.profiles
+set role = 'admin'
+where lower(email) = lower('owner@example.com');
+```
+
+4. Disable public user sign-ups in Supabase Auth settings. There is deliberately no sign-up route in this application.
+5. Sign in at `/admin/login` and test the pipeline and document workflows.
+
+Agreement generation is an editable drafting aid, not legal advice. Replace every bracketed prompt, add Jurivo's confirmed legal entity/payment/VAT details, and obtain qualified South African legal review before issuing or signing a document.
 
 Before accepting production traffic, add provider-side rate limiting or an edge/WAF rule if submission volume or abuse risk warrants it. The honeypot is deliberately a lightweight first layer, not a complete anti-spam system.
 
@@ -287,7 +343,7 @@ The application is suitable for Vercel or any Node.js platform capable of runnin
 6. Attach the production domain and set `NEXT_PUBLIC_SITE_URL` to its exact HTTPS origin.
 7. Redeploy after changing any `NEXT_PUBLIC_` value because public variables are embedded at build time.
 
-No database or persistent filesystem is required. Audit requests are delivered directly through Resend.
+No persistent filesystem is required. Supabase is the system of record; Resend is an optional notification channel rather than the source of truth.
 
 ## Production checklist
 
@@ -296,8 +352,12 @@ No database or persistent filesystem is required. Audit requests are delivered d
 - [ ] Verify the Resend sending domain.
 - [ ] Create a restricted sending-access Resend API key and configure it without committing it.
 - [ ] Configure the verified sender and audit recipient.
-- [ ] Submit a real audit request and verify delivery plus `replyTo` behaviour.
-- [ ] Confirm successful delivery redirects to `/thank-you` and failed delivery does not.
+- [ ] Apply all Supabase migrations and configure the URL and publishable key.
+- [ ] Create the sole Auth user, promote its profile to `admin`, and disable public sign-ups.
+- [ ] Submit both public forms and verify the intake, firm, contact, enquiry, opportunity, and journey records.
+- [ ] Confirm successful storage redirects correctly and a storage failure remains recoverable on the form.
+- [ ] Confirm optional Resend delivery and `replyTo` behaviour.
+- [ ] Add approved Jurivo legal entity, VAT, banking, commercial terms, privacy/POPIA, and agreement wording.
 - [ ] Confirm legal contact details and add privacy/POPIA copy where required.
 - [ ] Replace illustrative proof with approved case studies or testimonials when available.
 - [ ] Test social previews and search metadata against the production URL.
@@ -306,9 +366,13 @@ No database or persistent filesystem is required. Audit requests are delivered d
 
 ## Troubleshooting
 
-### The audit form says the inbox is not configured
+### A lead form says it could not securely save the request
 
-Ensure `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `AUDIT_TO_EMAIL` are defined in the environment where the Server Action runs. Restart the development server after editing `.env.local`.
+Confirm `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, apply every migration under `supabase/migrations/`, and restart the development server. Check Supabase API and Postgres logs if the configuration is correct.
+
+### The admin account signs in but is rejected
+
+Confirm the Auth user's `public.profiles` row exists and has `role = 'admin'`. The application intentionally signs out authenticated non-admin users.
 
 ### Resend rejects the sender
 

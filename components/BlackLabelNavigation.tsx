@@ -5,10 +5,10 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const navigationItems = [
-  ["Expertise", "#expertise"],
-  ["Approach", "#approach"],
-  ["Client Journey", "#journey"],
-  ["Contact", "#audit"],
+  ["Expertise", "/#expertise"],
+  ["Approach", "/#approach"],
+  ["Law Firm SEO", "/services/law-firm-seo-south-africa"],
+  ["Contact", "/#audit"],
 ] as const;
 
 export function BlackLabelNavigation() {
@@ -30,13 +30,13 @@ export function BlackLabelNavigation() {
 
       <div className="hidden items-center gap-7 text-[13px] font-medium text-[#d0cdc7] lg:flex">
         {navigationItems.map(([label, href]) => (
-          <a key={href} href={href} className="transition-colors duration-200 hover:text-white">{label}</a>
+          <Link key={href} href={href} className="transition-colors duration-200 hover:text-white">{label}</Link>
         ))}
       </div>
 
-      <a href="#audit" className="hidden min-h-11 items-center rounded-[2px] bg-[#efece5] px-5 text-[13px] font-semibold text-[#090a0b] transition-colors duration-200 hover:bg-white sm:flex">
+      <Link href="/#audit" className="hidden min-h-11 items-center rounded-[2px] bg-[#efece5] px-5 text-[13px] font-semibold text-[#090a0b] transition-colors duration-200 hover:bg-white sm:flex">
         Request an Audit
-      </a>
+      </Link>
 
       <button
         type="button"
@@ -56,13 +56,13 @@ export function BlackLabelNavigation() {
       >
         <div className="mx-auto flex max-w-[1320px] flex-col">
           {navigationItems.map(([label, href]) => (
-            <a key={href} href={href} onClick={() => setOpen(false)} className="flex min-h-14 items-center border-b border-[#343638] text-base text-[#efece5] transition-colors duration-200 hover:text-white">
+            <Link key={href} href={href} onClick={() => setOpen(false)} className="flex min-h-14 items-center border-b border-[#343638] text-base text-[#efece5] transition-colors duration-200 hover:text-white">
               {label}
-            </a>
+            </Link>
           ))}
-          <a href="#audit" onClick={() => setOpen(false)} className="mt-5 flex min-h-12 items-center justify-center rounded-[2px] bg-[#efece5] px-6 text-sm font-semibold text-[#090a0b] transition-colors duration-200 hover:bg-white">
+          <Link href="/#audit" onClick={() => setOpen(false)} className="mt-5 flex min-h-12 items-center justify-center rounded-[2px] bg-[#efece5] px-6 text-sm font-semibold text-[#090a0b] transition-colors duration-200 hover:bg-white">
             Request Your Growth Audit
-          </a>
+          </Link>
         </div>
       </div>
     </nav>

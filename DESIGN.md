@@ -186,8 +186,9 @@ Controls use 2px corners and fields use 4px corners. Full circles are reserved f
 
 - Bone surface, carbon text, 4px radius, 48px minimum height.
 - Labels remain visible above the field; placeholders never replace labels.
+- Longer qualification forms group related fields with native `fieldset` and `legend` semantics; legends use 24px Bodoni on the carbon field rather than introducing cards.
 - Pending submission disables the action and names the in-progress state.
-- Errors explain the problem and provide a recovery path while preserving input.
+- Errors sit directly below the field in soft wine, remain programmatically associated with the control, and move focus to the first invalid field while preserving input.
 
 ### Navigation
 

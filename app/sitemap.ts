@@ -1,18 +1,24 @@
 import type { MetadataRoute } from "next";
+import { absoluteUrl } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://jurivo.co.za";
-
   return [
     {
-      url: siteUrl,
-      lastModified: new Date(),
+      url: absoluteUrl("/"),
+      lastModified: "2026-08-17",
       changeFrequency: "monthly",
       priority: 1,
+      images: [absoluteUrl("/black-label-johannesburg-office.png")],
     },
     {
-      url: `${siteUrl}/strategy-call`,
-      lastModified: new Date(),
+      url: absoluteUrl("/services/law-firm-seo-south-africa"),
+      lastModified: "2026-08-17",
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: absoluteUrl("/strategy-call"),
+      lastModified: "2026-08-17",
       changeFrequency: "monthly",
       priority: 0.8,
     },

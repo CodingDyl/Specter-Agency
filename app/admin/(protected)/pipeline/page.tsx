@@ -1,0 +1,11 @@
+import { AdminPageHeader, EmptyState, StatusBadge } from "@/components/admin/AdminUi";
+import { OpportunityEditor } from "@/components/admin/WorkspaceForms";
+import { requireAdmin } from "@/lib/admin/auth";
+import { formatCurrency, formatDate } from "@/lib/admin/format";
+
+export default async function PipelinePage() {
+  const { supabase } = await requireAdmin();
+  const { data } = await supabase.from("opportunities").select("id,title,stage,probability,estimated_value,next_action,next_action_at,updated_at,firm_id,contact_id,enquiry_id,firms(name),contacts(full_name,email),enquiries(kind,created_at)").order("updated_at", { ascending: false });
+  const opportunities = data || [];
+  return <main id="main-content"><AdminPageHeader title="Pipeline" description="Move each firm through a concrete commercial journey. Value, probability, next action, and due date stay visible at every stage." actionHref="/admin/quotes/new" actionLabel="Create quote" /><div className="mx-auto max-w-[1440px] px-5 py-8 sm:px-8 lg:px-10">{opportunities.length ? <div className="space-y-5">{opportunities.map((item) => <article key={item.id} className="border-t-2 border-[#090a0b] bg-[#f3f0e9] p-5 sm:p-6"><div className="grid gap-4 md:grid-cols-[1fr_auto_auto] md:items-start"><div><p className="text-xs font-semibold uppercase tracking-[.12em] text-[#686761]">{(item.enquiries as unknown as { kind: string } | null)?.kind?.replaceAll("_", " ") || "Opportunity"}</p><h2 className="mt-2 text-xl font-semibold">{(item.firms as unknown as { name: string } | null)?.name || item.title}</h2><p className="mt-1 text-sm text-[#686761]">{(item.contacts as unknown as { full_name: string; email: string } | null)?.full_name} · {(item.contacts as unknown as { email: string } | null)?.email}</p></div><StatusBadge value={item.stage} /><div className="md:text-right"><p className="font-semibold">{formatCurrency(Number(item.estimated_value || 0))}</p><p className="mt-1 text-xs text-[#686761]">{item.probability}% probability · updated {formatDate(item.updated_at)}</p></div></div><div className="mt-5"><OpportunityEditor opportunity={item} /></div></article>)}</div> : <EmptyState title="No opportunities yet" body="Validated Growth Audit and strategy-call submissions create an opportunity automatically." href="/" action="Open the lead forms" />}</div></main>;
+}

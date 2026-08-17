@@ -7,6 +7,7 @@ import {
   submitStrategyCall,
   type StrategyCallFormState,
 } from "@/app/strategy-call/actions";
+import { LeadAttributionFields } from "@/components/LeadAttributionFields";
 
 const initialState: StrategyCallFormState = { status: "idle", message: "" };
 const fieldClass =
@@ -29,6 +30,7 @@ export function StrategyCallForm() {
 
   return (
     <form ref={formRef} action={formAction} className="space-y-10">
+      <LeadAttributionFields />
       <div className="absolute -left-[9999px]" aria-hidden="true">
         <label htmlFor="strategy-company">Company website verification</label>
         <input id="strategy-company" name="company" tabIndex={-1} autoComplete="off" />
@@ -111,7 +113,7 @@ export function StrategyCallForm() {
       </fieldset>
 
       <fieldset className="space-y-5 border-t border-[#343638] pt-8">
-        <legend className="mb-5 translate-y-8 bg-[#090a0b] pr-4 font-[family-name:var(--font-bodoni)] text-2xl">Project direction</legend>
+        <legend className="mb-5 bg-[#090a0b] pr-4 font-[family-name:var(--font-bodoni)] text-2xl">Project direction</legend>
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="space-y-2 text-sm font-medium">
             <span>Priority practice area</span>
@@ -154,7 +156,7 @@ export function StrategyCallForm() {
             maxLength={1000}
             placeholder="Tell us what changed, what the current website is holding back, and what the firm needs this project to make possible."
             aria-invalid={Boolean(errorFor("urgency"))}
-            aria-describedby={errorFor("urgency") ? "strategy-urgency-error" : "strategy-urgency-help"}
+            aria-describedby={errorFor("urgency") ? "strategy-urgency-help strategy-urgency-error" : "strategy-urgency-help"}
             required
           />
           <span id="strategy-urgency-help" className="block text-sm leading-6 text-[#a4a5a3]">Do not include confidential client or matter information.</span>
@@ -163,7 +165,7 @@ export function StrategyCallForm() {
       </fieldset>
 
       <fieldset className="space-y-5 border-t border-[#343638] pt-8">
-        <legend className="mb-5 translate-y-8 bg-[#090a0b] pr-4 font-[family-name:var(--font-bodoni)] text-2xl">Readiness</legend>
+        <legend className="mb-5 bg-[#090a0b] pr-4 font-[family-name:var(--font-bodoni)] text-2xl">Readiness</legend>
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="space-y-2 text-sm font-medium">
             <span>When do you want to start?</span>

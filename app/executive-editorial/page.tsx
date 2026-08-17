@@ -4,11 +4,14 @@ import { ArrowRight } from "lucide-react";
 import { AuditForm } from "@/components/AuditForm";
 import { Reveal } from "@/components/MotionSystem";
 import { SiteSwitcher } from "@/components/SiteSwitcher";
+import { createPageMetadata } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Executive Editorial",
-  description: "A restrained editorial direction for Jurivo, digital growth consultancy for South African law firms.",
-};
+  description: "An internal Jurivo design concept retained for reference.",
+  pathname: "/executive-editorial",
+  noIndex: true,
+});
 
 const observations = [
   ["Visibility", "Potential clients cannot instruct a firm they cannot find."],

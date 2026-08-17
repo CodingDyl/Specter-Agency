@@ -2,13 +2,50 @@ import type { Metadata } from "next";
 import { getImageProps } from "next/image";
 import Link from "next/link";
 import { ArrowRight, CornerDownLeft } from "lucide-react";
+import { JsonLd } from "@/components/JsonLd";
 import { StrategyCallForm } from "@/components/StrategyCallForm";
+import { absoluteUrl, createPageMetadata, siteConfig } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+const pathname = "/strategy-call";
+
+export const metadata: Metadata = createPageMetadata({
   title: "Website Strategy Call for Law Firms",
   description:
     "A focused strategy call for South African law firms ready to move on a new website, redesign or digital growth system.",
-  alternates: { canonical: "/strategy-call" },
+  pathname,
+});
+
+const strategyCallJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": `${absoluteUrl(pathname)}#service`,
+      name: "Website strategy call for South African law firms",
+      serviceType: "Law firm website strategy consultation",
+      description:
+        "A focused strategy session for South African law firms preparing for a new website, redesign or connected digital growth system.",
+      url: absoluteUrl(pathname),
+      provider: { "@id": `${siteConfig.url}/#organization` },
+      areaServed: { "@type": "Country", name: siteConfig.market },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${absoluteUrl(pathname)}#webpage`,
+      url: absoluteUrl(pathname),
+      name: "Website Strategy Call for Law Firms",
+      inLanguage: siteConfig.language,
+      isPartOf: { "@id": `${siteConfig.url}/#website` },
+      about: { "@id": `${absoluteUrl(pathname)}#service` },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.url },
+        { "@type": "ListItem", position: 2, name: "Website Strategy Call", item: absoluteUrl(pathname) },
+      ],
+    },
+  ],
 };
 
 const ownerOutcomes = [
@@ -72,6 +109,7 @@ export default function StrategyCallPage() {
 
   return (
     <div className="min-h-screen bg-[#090a0b] font-[family-name:var(--font-instrument)] text-[#efece5] [--focus:#efece5]">
+      <JsonLd data={strategyCallJsonLd} />
       <main id="main-content">
         <section className="relative isolate min-h-[780px] overflow-hidden">
           <picture className="absolute inset-0 -z-20">

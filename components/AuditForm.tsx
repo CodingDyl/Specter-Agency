@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { ArrowRight, LoaderCircle } from "lucide-react";
 import { submitAudit, type AuditFormState } from "@/app/actions";
+import { LeadAttributionFields } from "@/components/LeadAttributionFields";
 
 type Variant = "editorial" | "modern" | "black";
 
@@ -87,6 +88,7 @@ export function AuditForm({
   return (
     <form action={formAction} className="space-y-5">
       <input type="hidden" name="concept" value={concept} />
+      <LeadAttributionFields />
       <div className="absolute -left-[9999px]" aria-hidden="true">
         <label htmlFor={`${variant}-company`}>Company website verification</label>
         <input id={`${variant}-company`} name="company" tabIndex={-1} autoComplete="off" />

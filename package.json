@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@gsap/react": "latest",
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.112.3",
     "gsap": "latest",
     "lucide-react": "latest",
     "motion": "latest",

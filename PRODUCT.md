@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Next.js App Router, TypeScript, Tailwind CSS, GSAP, Motion, and Resend. Deployment target is currently undecided.
+Next.js App Router, TypeScript, Tailwind CSS, GSAP, Motion, Supabase Postgres/Auth/RLS, and Resend. Deployment target is currently undecided.
 
 ## Users
 
@@ -36,6 +36,9 @@ Visitors are likely comparing professional-service partners while protecting an 
 - Strategy-call briefs qualify project need, desired start, decision role and investment readiness before moving a successfully delivered lead into the configured scheduling calendar. Without a calendar URL, the firm receives an honest no-index confirmation and a direct follow-up.
 - The site must be responsive, accessible, SEO-ready, and respectful of reduced-motion preferences.
 - Resend is the intended email delivery service. Production sender, recipient, calendar URL, analytics, privacy copy, and deployment target remain open decisions.
+- Supabase is the system of record for leads and the customer journey. The protected `/admin` workspace supports a single admin user, commercial pipeline, quotes, agreement drafts, project delivery, and recurring hosting/maintenance services.
+- Public submissions are write-only under Row Level Security. A successful durable database write controls the visitor success state; Resend is a best-effort notification channel.
+- Agreement output must remain visibly draft-only until Jurivo's legal identity, commercial terms, VAT position, privacy requirements, and qualified legal review are confirmed.
 
 ## Brand Commitments
 

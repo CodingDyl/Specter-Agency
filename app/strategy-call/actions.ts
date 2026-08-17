@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
 import { z } from "zod";
+import { storeLeadSubmission } from "@/lib/leads/store-lead-submission";
 
 export type StrategyCallFormState = {
   status: "idle" | "error";
@@ -66,6 +67,18 @@ function getSafeCalendarUrl() {
   return value;
 }
 
+function getAttribution(formData: FormData) {
+  return {
+    landing_page: getField(formData, "landingPage"),
+    referrer: getField(formData, "referrer"),
+    utm_source: getField(formData, "utmSource"),
+    utm_medium: getField(formData, "utmMedium"),
+    utm_campaign: getField(formData, "utmCampaign"),
+    utm_content: getField(formData, "utmContent"),
+    utm_term: getField(formData, "utmTerm"),
+  };
+}
+
 export async function submitStrategyCall(
   _previousState: StrategyCallFormState,
   formData: FormData,
@@ -93,19 +106,34 @@ export async function submitStrategyCall(
     };
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.RESEND_FROM_EMAIL;
-  const to = process.env.STRATEGY_TO_EMAIL || process.env.AUDIT_TO_EMAIL;
+  const { data } = parsed;
 
-  if (!apiKey || !from || !to) {
+  try {
+    await storeLeadSubmission({
+      submissionType: "strategy_call",
+      name: data.name,
+      firmName: data.firm,
+      email: data.email,
+      phone: data.phone,
+      website: data.website,
+      practiceArea: data.practiceArea,
+      projectNeed: data.projectNeed,
+      desiredStart: data.desiredStart,
+      decisionRole: data.decisionRole,
+      investmentReadiness: data.investmentReadiness,
+      urgency: data.urgency,
+      attribution: getAttribution(formData),
+    });
+  } catch {
     return {
       status: "error",
-      message: "The strategy-call inbox is not configured yet. Please request a Growth Audit instead.",
+      message: "We could not securely save your brief. Please try again.",
     };
   }
 
-  const resend = new Resend(apiKey);
-  const { data } = parsed;
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.RESEND_FROM_EMAIL;
+  const to = process.env.STRATEGY_TO_EMAIL || process.env.AUDIT_TO_EMAIL;
   const text = [
     "High-intent website strategy call",
     `Name: ${data.name}`,
@@ -123,20 +151,21 @@ export async function submitStrategyCall(
     data.urgency,
   ].join("\n");
 
-  try {
-    const response = await resend.emails.send({
-      from,
-      to,
-      replyTo: data.email,
-      subject: `Strategy call brief — ${data.firm}`,
-      text,
-    });
+  if (apiKey && from && to) {
+    try {
+      const resend = new Resend(apiKey);
+      const response = await resend.emails.send({
+        from,
+        to,
+        replyTo: data.email,
+        subject: `Strategy call brief — ${data.firm}`,
+        text,
+      });
 
-    if (response.error) {
-      return { status: "error", message: "We could not send your brief. Please try again." };
+      if (response.error) console.error("Strategy brief notification delivery failed.");
+    } catch {
+      console.error("Strategy brief notification delivery failed.");
     }
-  } catch {
-    return { status: "error", message: "We could not send your brief. Please try again." };
   }
 
   redirect(getSafeCalendarUrl() || "/strategy-call/received");

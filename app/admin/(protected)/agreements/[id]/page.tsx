@@ -1,0 +1,13 @@
+import { notFound } from "next/navigation";
+import { LifecycleStatusForm, PrintButton } from "@/components/admin/WorkspaceForms";
+import { StatusBadge } from "@/components/admin/AdminUi";
+import { requireAdmin } from "@/lib/admin/auth";
+import { formatDate } from "@/lib/admin/format";
+import type { AgreementRecord } from "@/lib/supabase/types";
+
+export default async function AgreementDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params; const { supabase } = await requireAdmin();
+  const { data } = await supabase.from("agreements").select("id,agreement_number,title,status,effective_date,client_signatory_name,client_signatory_title,body_markdown,firms(name),contacts(full_name,email)").eq("id", Number(id)).single();
+  if (!data) notFound(); const agreement = data as unknown as AgreementRecord;
+  return <main id="main-content" className="bg-[#ece9e2] px-4 py-8 print:bg-white print:p-0"><div className="mx-auto mb-4 flex max-w-[960px] flex-col gap-4 sm:flex-row sm:items-end sm:justify-between print:hidden"><LifecycleStatusForm entity="agreement" id={agreement.id} value={agreement.status} options={["draft","sent","signed","declined","void"]} /><PrintButton /></div><article className="mx-auto max-w-[960px] bg-[#f8f5ee] p-7 shadow-sm sm:p-12 print:max-w-none print:p-10 print:shadow-none"><div className="mb-6 border-l-2 border-[#6a3038] bg-[#f0e2e2] p-4 text-sm text-[#6a3038] print:border print:bg-white"><strong>Draft — legal review required.</strong> Do not issue or sign while bracketed prompts remain.</div><header className="flex flex-col gap-6 border-b-2 border-[#090a0b] pb-8 sm:flex-row sm:items-start sm:justify-between"><div><p className="text-xs font-semibold tracking-[.32em]">JURIVO</p><h1 className="mt-5 text-3xl font-semibold tracking-[-.03em]">{agreement.title}</h1><p className="mt-2 text-sm text-[#686761]">{agreement.agreement_number}</p></div><StatusBadge value={agreement.status} /></header><section className="grid gap-7 border-b border-[#cbc6bc] py-7 sm:grid-cols-2"><div><p className="text-xs font-semibold uppercase tracking-[.1em] text-[#686761]">Client</p><p className="mt-2 font-semibold">{agreement.firms?.name}</p><p className="mt-1 text-sm text-[#686761]">{agreement.contacts?.full_name} · {agreement.contacts?.email}</p></div><div><p className="text-xs font-semibold uppercase tracking-[.1em] text-[#686761]">Effective date</p><p className="mt-2 font-semibold">{formatDate(agreement.effective_date)}</p></div></section><div className="whitespace-pre-wrap py-9 text-[15px] leading-8 text-[#272826]">{agreement.body_markdown}</div></article></main>;
+}

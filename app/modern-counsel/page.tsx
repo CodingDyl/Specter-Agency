@@ -4,11 +4,14 @@ import { ArrowDown, ArrowRight, Check } from "lucide-react";
 import { AuditForm } from "@/components/AuditForm";
 import { Reveal, ScoreBar } from "@/components/MotionSystem";
 import { SiteSwitcher } from "@/components/SiteSwitcher";
+import { createPageMetadata } from "@/lib/site-config";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Modern Counsel",
-  description: "A structured, analytical direction for Jurivo, digital growth consultancy for South African law firms.",
-};
+  description: "An internal Jurivo design concept retained for reference.",
+  pathname: "/modern-counsel",
+  noIndex: true,
+});
 
 const modules = [
   ["01", "Website", "A digital experience designed around your highest-value practice areas.", "More visitors reaching enquiry actions."],
