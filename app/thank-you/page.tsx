@@ -25,12 +25,6 @@ const nextSteps = [
 ];
 
 export default function ThankYouPage() {
-  const configuredStrategyUrl = process.env.NEXT_PUBLIC_STRATEGY_CALL_URL;
-  const strategyUrl = configuredStrategyUrl || "/#approach";
-  const strategyLabel = configuredStrategyUrl ? "Book a Strategy Call" : "Explore Our Approach";
-  const strategyBody = configuredStrategyUrl
-    ? "If timing matters, you can reserve a focused strategy conversation while we review your request."
-    : "While we review your request, see how Jurivo connects positioning, visibility and conversion into one growth system.";
   const { props: desktopHeroImage } = getImageProps({
     src: "/black-label-johannesburg-office.png",
     alt: "",
@@ -118,14 +112,14 @@ export default function ThankYouPage() {
               Prefer to move sooner?
             </h2>
             <p className="mt-6 max-w-xl leading-7 text-[#a4a5a3]">
-              {strategyBody}
+              If the website decision is already made and timing matters, use the dedicated strategy route to give the first conversation real commercial context.
             </p>
           </div>
           <Link
-            href={strategyUrl}
+            href="/strategy-call"
             className="group inline-flex min-h-12 w-fit items-center gap-3 rounded-[2px] bg-[#efece5] px-6 py-3 text-sm font-semibold text-[#090a0b] transition-colors duration-200 hover:bg-white"
           >
-            {strategyLabel}
+            Book a Strategy Call
             <ArrowRight className="transition-transform duration-200 group-hover:translate-x-1" size={16} aria-hidden="true" />
           </Link>
         </div>

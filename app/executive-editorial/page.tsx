@@ -31,8 +31,6 @@ const processSteps = [
 ];
 
 export default function ExecutiveEditorialPage() {
-  const strategyUrl = process.env.NEXT_PUBLIC_STRATEGY_CALL_URL || "#audit";
-
   return (
     <div className="concept-shell bg-[#f4f1ea] font-[family-name:var(--font-instrument)] text-[#101112] [--focus:#692b35]">
       <header className="border-b border-[#d8d3c9]">
@@ -63,7 +61,7 @@ export default function ExecutiveEditorialPage() {
               <a href="#audit" className="flex min-h-12 items-center gap-3 bg-[#101112] px-6 text-sm font-semibold text-[#f4f1ea] transition-colors hover:bg-[#692b35]">
                 Request Your Growth Audit <ArrowRight size={16} aria-hidden="true" />
               </a>
-              <a href={strategyUrl} className="group flex min-h-11 items-center text-sm font-semibold">
+              <a href="/strategy-call" className="group flex min-h-11 items-center text-sm font-semibold">
                 Book a Strategy Call <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
               </a>
             </div>

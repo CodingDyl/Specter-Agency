@@ -27,7 +27,6 @@ const expertise = [
 ];
 
 export default function BlackLabelPage() {
-  const strategyUrl = process.env.NEXT_PUBLIC_STRATEGY_CALL_URL || "#audit";
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://jurivo.co.za";
   const heroAlt = "A dark, glass-walled executive office overlooking a city at blue hour";
   const { props: desktopHero } = getImageProps({
@@ -107,7 +106,7 @@ export default function BlackLabelPage() {
                   <a href="#audit" className="flex min-h-12 items-center gap-3 rounded-[2px] bg-[#efece5] px-6 text-sm font-semibold text-[#090a0b] transition-colors hover:bg-white">
                     Request Your Growth Audit <ArrowRight size={16} aria-hidden="true" />
                   </a>
-                  <a href={strategyUrl} className="group flex min-h-12 items-center text-sm font-semibold">Book a Strategy Call <span className="ml-2 transition-transform group-hover:translate-x-1">→</span></a>
+                  <a href="/strategy-call" className="group flex min-h-12 items-center text-sm font-semibold">Book a Strategy Call <span className="ml-2 transition-transform group-hover:translate-x-1">→</span></a>
                 </div>
               </div>
             </div>

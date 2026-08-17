@@ -83,6 +83,8 @@ Visitor
 | `/` | Canonical Jurivo Black Label website | Allowed |
 | `/black-label` | Legacy path; permanently redirects to `/` | Redirected |
 | `/thank-you` | Successful Growth Audit confirmation and next-step guidance | No-index |
+| `/strategy-call` | High-intent website strategy brief and scheduling path | Allowed |
+| `/strategy-call/received` | Email follow-up confirmation when no calendar is configured | No-index |
 | `/executive-editorial` | Archived internal design reference | Disallowed in `robots.txt` |
 | `/modern-counsel` | Archived internal design reference | Disallowed in `robots.txt` |
 | `/sitemap.xml` | Canonical sitemap | Public |
@@ -117,10 +119,11 @@ Create `.env.local` from `.env.example`. Never commit `.env.local` or production
 
 | Variable | Required | Exposure | Description |
 |---|---:|---|---|
-| `RESEND_API_KEY` | For live forms | Server only | Sending-access Resend API key used by the audit Server Action |
+| `RESEND_API_KEY` | For live forms | Server only | Sending-access Resend API key used by lead Server Actions |
 | `RESEND_FROM_EMAIL` | For live forms | Server only | Verified sender, for example `Jurivo Website <website@jurivo.co.za>` |
 | `AUDIT_TO_EMAIL` | For live forms | Server only | Inbox that receives qualified audit requests |
-| `NEXT_PUBLIC_STRATEGY_CALL_URL` | Recommended | Browser | Absolute booking URL; falls back to the audit section when omitted |
+| `STRATEGY_TO_EMAIL` | Optional | Server only | Inbox for high-intent strategy briefs; falls back to `AUDIT_TO_EMAIL` |
+| `NEXT_PUBLIC_STRATEGY_CALL_URL` | Recommended | Browser | Absolute booking URL opened after a strategy brief is delivered |
 | `NEXT_PUBLIC_SITE_URL` | Recommended | Browser/build | Public origin used for canonical metadata, structured data, sitemap, and robots; defaults to `https://jurivo.co.za` |
 
 Example:
@@ -129,6 +132,7 @@ Example:
 RESEND_API_KEY=re_xxxxxxxxx
 RESEND_FROM_EMAIL=Jurivo Website <website@yourdomain.co.za>
 AUDIT_TO_EMAIL=hello@yourdomain.co.za
+STRATEGY_TO_EMAIL=hello@yourdomain.co.za
 NEXT_PUBLIC_STRATEGY_CALL_URL=https://cal.com/your-team/strategy-call
 NEXT_PUBLIC_SITE_URL=https://jurivo.co.za
 ```
@@ -165,6 +169,14 @@ The server validates:
 - An empty hidden company field used as a honeypot.
 
 On a valid submission, Resend sends a plain-text lead summary to `AUDIT_TO_EMAIL` and sets the visitor's address as `replyTo`. A firm without a website is identified explicitly in the email. Only a successful provider response redirects the visitor to `/thank-you`; validation, configuration, and delivery errors remain on the form with a user-safe recovery message.
+
+## Strategy-call workflow
+
+Every “Book a Strategy Call” action opens `/strategy-call`, a separate high-intent route for firms that have already decided to move on a new website, strategic redesign or connected visibility system. The page explains the intended outcome of the conversation before asking for a commercial brief.
+
+The strategy brief captures contact details, an optional website, priority practice area, project need, desired start, decision role, investment readiness and the reason the project has become urgent. Resend delivers it to `STRATEGY_TO_EMAIL`, falling back to `AUDIT_TO_EMAIL`, and uses the visitor's work email as `replyTo`.
+
+After successful delivery, a valid `NEXT_PUBLIC_STRATEGY_CALL_URL` takes the visitor to the scheduling provider. When no valid calendar URL is configured, the visitor goes to `/strategy-call/received`, which truthfully confirms that Jurivo will arrange the conversation by email. Delivery failures remain on the form and never imply that a call was booked.
 
 Before accepting production traffic, add provider-side rate limiting or an edge/WAF rule if submission volume or abuse risk warrants it. The honeypot is deliberately a lightweight first layer, not a complete anti-spam system.
 
@@ -302,9 +314,9 @@ Ensure `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `AUDIT_TO_EMAIL` are defined i
 
 `RESEND_FROM_EMAIL` must use a domain verified in the active Resend account. The visible display name can be changed, but the email domain must match an approved sender.
 
-### The booking button scrolls to the form
+### The strategy brief does not open the calendar
 
-This is the intended fallback when `NEXT_PUBLIC_STRATEGY_CALL_URL` is missing. Set it to an absolute booking URL and restart or redeploy.
+Set `NEXT_PUBLIC_STRATEGY_CALL_URL` to an absolute `https://` booking URL and restart or redeploy. Without it, successfully delivered strategy briefs use the honest `/strategy-call/received` email-follow-up route.
 
 ### Canonical URLs show the wrong domain
 

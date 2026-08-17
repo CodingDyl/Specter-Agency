@@ -20,8 +20,6 @@ const modules = [
 const measures = ["Organic visibility", "Qualified enquiries", "Conversion rate", "Consultation requests", "Practice-area performance", "Source attribution"];
 
 export default function ModernCounselPage() {
-  const strategyUrl = process.env.NEXT_PUBLIC_STRATEGY_CALL_URL || "#audit";
-
   return (
     <div className="concept-shell bg-[#f6f7f5] font-[family-name:var(--font-manrope)] text-[#121a23] [--focus:#274a5d]">
       <header className="sticky top-0 z-40 border-b border-[#dde2e3] bg-[#f6f7f5]/95 backdrop-blur-md">
@@ -52,7 +50,7 @@ export default function ModernCounselPage() {
                   Request Your Growth Audit <ArrowRight size={16} aria-hidden="true" />
                 </a>
                 <a href="#approach" className="flex min-h-11 items-center gap-2 text-sm font-semibold text-[#274a5d]">See How It Works <ArrowDown size={15} aria-hidden="true" /></a>
-                <a href={strategyUrl} className="flex min-h-11 items-center text-sm font-semibold text-[#274a5d]">Book a Strategy Call →</a>
+                <a href="/strategy-call" className="flex min-h-11 items-center text-sm font-semibold text-[#274a5d]">Book a Strategy Call →</a>
               </div>
             </div>
 
