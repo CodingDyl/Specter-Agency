@@ -49,7 +49,13 @@ export function BlackLabelMotion({ children }: { children: ReactNode }) {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
-      gsap.to(".black-hero-image", {
+      const heroTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+      heroTimeline
+        .from(".black-hero-title", { opacity: 0, y: 18, duration: 1.05 })
+        .from(".black-hero-intro", { opacity: 0, y: 10, duration: 0.75 }, "-=0.58")
+        .from(".black-hero-actions > *", { opacity: 0, y: 8, duration: 0.62, stagger: 0.08 }, "-=0.48");
+
+      gsap.to(".black-hero-media", {
         scale: 1.08,
         ease: "none",
         scrollTrigger: { trigger: ".black-hero", start: "top top", end: "bottom top", scrub: 0.8 },

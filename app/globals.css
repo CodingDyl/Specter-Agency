@@ -74,6 +74,10 @@ button {
     scroll-behavior: auto;
   }
 
+  .black-hero-media video {
+    display: none !important;
+  }
+
   *,
   *::before,
   *::after {

@@ -159,9 +159,9 @@ Black Label uses a near-black and warm-paper polarity, with bone for action and 
 
 ## Layout
 
-The canonical container is 1320px with 20px mobile gutters and 32px wide-screen gutters. Sections use roughly 80px vertical space on mobile and 112px on desktop. The opening fills at least 850px and holds content at the lower edge; subsequent sections alternate full-width fields with asymmetrical two-column editorial grids.
+The canonical container is 1320px with 20px mobile gutters and 32px wide-screen gutters. Sections use roughly 80px vertical space on mobile and 112px on desktop. The opening fills at least 850px and holds content at the lower edge; subsequent sections alternate full-width fields with asymmetrical two-column editorial grids. On desktop, the architectural hero moves through a muted forward/reverse video loop; the still image remains underneath as the loading and failure fallback.
 
-At 768px the hero switches from the wide architectural image to its portrait companion. The horizontal client journey becomes a centred vertical sequence with visible connecting lines. At 1024px the primary navigation expands from an accessible disclosure menu into the full inline navigation.
+Below 768px the hero switches to its portrait still rather than downloading the wide video. Reduced-motion contexts also retain still imagery. The horizontal client journey becomes a centred vertical sequence with visible connecting lines. At 1024px the primary navigation expands from an accessible disclosure menu into the full inline navigation.
 
 ## Elevation & Depth
 

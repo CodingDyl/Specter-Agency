@@ -26,7 +26,7 @@ The selected visual direction is **Black Label**, internally described as **The 
 ## Core capabilities
 
 - Responsive, conversion-focused homepage for South African law-firm decision-makers.
-- Cinematic desktop and mobile hero artwork with optimised responsive image sources.
+- Cinematic desktop hero video with a seamless forward/reverse loop and responsive still-image fallbacks.
 - Accessible desktop navigation and keyboard-operable mobile menu.
 - Expandable diagnostic and expertise disclosures.
 - GSAP and Motion-powered reveal, journey, and score animations.

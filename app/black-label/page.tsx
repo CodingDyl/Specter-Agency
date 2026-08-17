@@ -62,19 +62,35 @@ export default function BlackLabelPage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <main id="main-content">
         <section className="black-hero relative isolate min-h-[850px] overflow-hidden">
-          <picture className="absolute inset-0 -z-20">
-            <source media="(max-width: 767px)" srcSet={mobileHero.srcSet} />
-            <img
-              src={desktopHero.src}
-              srcSet={desktopHero.srcSet}
-              sizes={desktopHero.sizes}
-              width={desktopHero.width}
-              height={desktopHero.height}
-              fetchPriority="high"
-              alt={heroAlt}
-              className="black-hero-image h-full w-full object-cover"
-            />
-          </picture>
+          <div className="black-hero-media absolute inset-0 -z-20 overflow-hidden">
+            <picture className="absolute inset-0">
+              <source media="(max-width: 767px)" srcSet={mobileHero.srcSet} />
+              <img
+                src={desktopHero.src}
+                srcSet={desktopHero.srcSet}
+                sizes={desktopHero.sizes}
+                width={desktopHero.width}
+                height={desktopHero.height}
+                fetchPriority="high"
+                alt={heroAlt}
+                className="h-full w-full object-cover"
+              />
+            </picture>
+            <video
+              className="absolute inset-0 hidden h-full w-full object-cover will-change-transform md:block"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster="/black-label-johannesburg-office.png"
+              disablePictureInPicture
+              aria-hidden="true"
+            >
+              <source src="/jurivo-office-loop.webm" type="video/webm" media="(min-width: 768px)" />
+              <source src="/jurivo-office-loop.mp4" type="video/mp4" media="(min-width: 768px)" />
+            </video>
+          </div>
           <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(9,10,11,.90)_0%,rgba(9,10,11,.6)_48%,rgba(9,10,11,.18)_100%)]" />
           <header className="border-b border-white/20">
             <BlackLabelNavigation />
@@ -82,12 +98,12 @@ export default function BlackLabelPage() {
 
           <div className="mx-auto flex min-h-[770px] max-w-[1320px] items-end px-5 pb-20 sm:px-8 sm:pb-24">
             <div className="max-w-[940px]">
-              <h1 className="balanced font-[family-name:var(--font-bodoni)] text-[clamp(3.6rem,7vw,6rem)] font-normal leading-[.92] tracking-[-.035em]">
+              <h1 className="black-hero-title balanced font-[family-name:var(--font-bodoni)] text-[clamp(3.6rem,7vw,6rem)] font-normal leading-[.92] tracking-[-.035em]">
                 Your firm didn’t build its reputation by looking like everyone else.
               </h1>
               <div className="mt-9 flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
-                <p className="pretty max-w-[62ch] text-base leading-7 text-[#c1c0bc] sm:text-lg">Jurivo helps established South African law firms turn their reputation into a stronger digital presence, greater search visibility and more qualified enquiries.</p>
-                <div className="flex shrink-0 flex-wrap gap-5">
+                <p className="black-hero-intro pretty max-w-[62ch] text-base leading-7 text-[#c1c0bc] sm:text-lg">Jurivo helps established South African law firms turn their reputation into a stronger digital presence, greater search visibility and more qualified enquiries.</p>
+                <div className="black-hero-actions flex shrink-0 flex-wrap gap-5">
                   <a href="#audit" className="flex min-h-12 items-center gap-3 rounded-[2px] bg-[#efece5] px-6 text-sm font-semibold text-[#090a0b] transition-colors hover:bg-white">
                     Request Your Growth Audit <ArrowRight size={16} aria-hidden="true" />
                   </a>
