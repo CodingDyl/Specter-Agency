@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-17T11:00:00Z",
+  "title": "Design System: Specter Black Label",
+  "extensions": {
+    "colorMeta": {
+      "carbon": {
+        "role": "background",
+        "displayName": "Carbon",
+        "canonical": "#090a0b",
+        "tonalRamp": ["#090a0b", "#111214", "#1a1b1d", "#292a2d", "#44464a", "#72757b", "#b7b9bd", "#efece5"]
+      },
+      "paper": {
+        "role": "surface",
+        "displayName": "Paper",
+        "canonical": "#e8e4dc",
+        "tonalRamp": ["#171716", "#30302e", "#4a4945", "#686661", "#898680", "#aaa69f", "#cbc7bf", "#e8e4dc"]
+      },
+      "bone": {
+        "role": "text",
+        "displayName": "Bone",
+        "canonical": "#efece5",
+        "tonalRamp": ["#181817", "#343330", "#514f4b", "#706d67", "#918e87", "#b3afa7", "#d4d0c8", "#efece5"]
+      },
+      "wine": {
+        "role": "accent",
+        "displayName": "Wine",
+        "canonical": "#6d2737",
+        "tonalRamp": ["#1d0c11", "#321018", "#491722", "#6d2737", "#8e3549", "#b2576b", "#d58a99", "#f0c3cc"]
+      },
+      "muted": {
+        "role": "secondary-text",
+        "displayName": "Muted Bone",
+        "canonical": "#a9a59d",
+        "tonalRamp": ["#171716", "#30302e", "#4a4945", "#66645f", "#838079", "#a9a59d", "#cbc7bf", "#e8e4dc"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "fontFamily": "var(--font-bodoni), 'Times New Roman', serif",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "letterSpacing": "-0.045em",
+        "usage": "Hero statements, section titles, and editorial numerals"
+      },
+      "body": {
+        "fontFamily": "var(--font-instrument), Arial, sans-serif",
+        "fontWeight": 400,
+        "fontStyle": "normal",
+        "letterSpacing": "-0.01em",
+        "usage": "Body copy, forms, buttons, and disclosures"
+      },
+      "navigation": {
+        "fontFamily": "var(--font-instrument), Arial, sans-serif",
+        "fontWeight": 600,
+        "fontStyle": "normal",
+        "letterSpacing": "0.08em",
+        "usage": "13px uppercase navigation and 12px uppercase labels"
+      }
+    },
+    "shadows": {
+      "mobile-navigation": "0 24px 72px rgba(0, 0, 0, 0.48)",
+      "focus-ring": "0 0 0 3px rgba(239, 236, 229, 0.24)"
+    },
+    "motion": {
+      "ease-reveal": "cubic-bezier(0.22, 1, 0.36, 1)",
+      "hero-drift": "18s linear infinite alternate",
+      "line-draw": "900ms cubic-bezier(0.22, 1, 0.36, 1)",
+      "interaction": "200ms ease-out"
+    },
+    "breakpoints": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px"
+    }
+  },
+  "components": [
+    {
+      "name": "Bone Primary Button",
+      "kind": "button",
+      "refersTo": "black-label-button-bone",
+      "description": "High-contrast primary action used on carbon surfaces.",
+      "html": "<button class=\"ds-button-bone\">Request Your Growth Audit <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></button>",
+      "css": ".ds-button-bone{min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:12px 22px;border:1px solid #efece5;border-radius:2px;background:#efece5;color:#090a0b;font:600 14px/1.4 var(--font-instrument),Arial,sans-serif;transition:background-color 200ms ease-out,color 200ms ease-out}.ds-button-bone:hover{background:transparent;color:#efece5}.ds-button-bone:focus-visible{outline:2px solid #efece5;outline-offset:4px}.ds-button-bone svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}"
+    },
+    {
+      "name": "Carbon Primary Button",
+      "kind": "button",
+      "refersTo": "black-label-button-carbon",
+      "description": "Dark primary action reserved for light paper surfaces.",
+      "html": "<button class=\"ds-button-carbon\">Start the Conversation <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></button>",
+      "css": ".ds-button-carbon{min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:12px 22px;border:1px solid #090a0b;border-radius:2px;background:#090a0b;color:#efece5;font:600 14px/1.4 var(--font-instrument),Arial,sans-serif;transition:background-color 200ms ease-out,color 200ms ease-out}.ds-button-carbon:hover{background:#6d2737;border-color:#6d2737}.ds-button-carbon:focus-visible{outline:2px solid #090a0b;outline-offset:4px}.ds-button-carbon svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}"
+    },
+    {
+      "name": "Black Label Input",
+      "kind": "input",
+      "refersTo": "black-label-input",
+      "description": "Quiet, underline-led form field with explicit focus feedback.",
+      "html": "<label class=\"ds-field\"><span>Work email</span><input type=\"email\" placeholder=\"you@firm.co.za\" /></label>",
+      "css": ".ds-field{display:grid;gap:8px;color:#efece5;font:600 12px/1.4 var(--font-instrument),Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em}.ds-field input{min-height:48px;width:100%;border:0;border-bottom:1px solid rgba(239,236,229,.35);border-radius:0;background:transparent;padding:10px 0;color:#efece5;font:400 16px/1.5 var(--font-instrument),Arial,sans-serif;text-transform:none;letter-spacing:0}.ds-field input::placeholder{color:#77746e}.ds-field input:focus{outline:0;border-bottom-color:#efece5}.ds-field:focus-within span{color:#c76e83}"
+    },
+    {
+      "name": "Primary Navigation",
+      "kind": "navigation",
+      "refersTo": "black-label-navigation",
+      "description": "Restrained uppercase navigation with a dominant audit action and a full-width mobile menu.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Primary navigation\"><a href=\"#expertise\">Expertise</a><a href=\"#approach\">Approach</a><a href=\"#contact\" class=\"ds-nav-cta\">Request an Audit</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:28px;font:600 13px/1.3 var(--font-instrument),Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em}.ds-nav a{min-height:44px;display:inline-flex;align-items:center;color:#efece5;text-decoration:none}.ds-nav a:hover{color:#c76e83}.ds-nav a:focus-visible{outline:2px solid #efece5;outline-offset:4px}.ds-nav .ds-nav-cta{min-height:48px;padding:0 18px;border:1px solid rgba(239,236,229,.6)}@media(max-width:767px){.ds-nav{width:100%;align-items:stretch;flex-direction:column;gap:0;padding:24px;background:#090a0b}.ds-nav a{min-height:56px;border-bottom:1px solid rgba(239,236,229,.14)}}"
+    },
+    {
+      "name": "Diagnostic Disclosure",
+      "kind": "disclosure",
+      "refersTo": "black-label-diagnostic-disclosure",
+      "description": "Accessible disclosure row for growth diagnostic questions.",
+      "html": "<details class=\"ds-disclosure\"><summary><span>01</span><strong>Is your website earning trust before the first consultation?</strong><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><p>We examine clarity, proof, conversion paths, and technical performance as one connected system.</p></details>",
+      "css": ".ds-disclosure{border-top:1px solid rgba(239,236,229,.22);color:#efece5}.ds-disclosure:last-child{border-bottom:1px solid rgba(239,236,229,.22)}.ds-disclosure summary{min-height:72px;display:grid;grid-template-columns:40px 1fr 24px;align-items:center;gap:16px;cursor:pointer;list-style:none}.ds-disclosure summary::-webkit-details-marker{display:none}.ds-disclosure span{color:#a9a59d;font:600 12px/1.4 var(--font-instrument),Arial,sans-serif}.ds-disclosure strong{font:400 clamp(18px,2vw,26px)/1.2 var(--font-bodoni),'Times New Roman',serif}.ds-disclosure svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;transition:transform 200ms ease-out}.ds-disclosure[open] svg{transform:rotate(45deg)}.ds-disclosure p{max-width:64ch;margin:0 0 24px 56px;color:#a9a59d;font:400 16px/1.65 var(--font-instrument),Arial,sans-serif}"
+    },
+    {
+      "name": "Client Journey Step",
+      "kind": "timeline",
+      "refersTo": "black-label-journey-step",
+      "description": "Editorial process marker built from a number, line, and concise outcome.",
+      "html": "<article class=\"ds-journey\"><span class=\"ds-journey-number\">01</span><div class=\"ds-journey-line\"></div><h3>Diagnose</h3><p>We identify where credibility and qualified demand are being lost.</p></article>",
+      "css": ".ds-journey{display:grid;grid-template-columns:48px 1fr;column-gap:20px;color:#efece5}.ds-journey-number{font:600 12px/1.4 var(--font-instrument),Arial,sans-serif;letter-spacing:.08em}.ds-journey-line{height:1px;margin-top:8px;background:rgba(239,236,229,.3);transform-origin:left}.ds-journey h3{grid-column:2;margin:24px 0 8px;font:400 clamp(28px,4vw,52px)/1 var(--font-bodoni),'Times New Roman',serif;letter-spacing:-.035em}.ds-journey p{grid-column:2;max-width:42ch;margin:0;color:#a9a59d;font:400 16px/1.65 var(--font-instrument),Arial,sans-serif}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Boardroom After Dark",
+    "overview": "Specter Black Label is a cinematic, restrained identity for a South African digital growth partner serving law firms. It combines severe carbon surfaces, warm bone typography, Bodoni editorial scale, and rare wine accents to communicate discretion, strategic authority, and modern legal credibility.",
+    "keyCharacteristics": [
+      "Carbon-first surfaces with warm bone text rather than stark white",
+      "Oversized Bodoni statements paired with precise Instrument Sans utility copy",
+      "Wine used as a rare signal for interaction, emphasis, and conversion",
+      "Editorial rules, legal numbering, and generous negative space",
+      "Subtle cinematic motion that preserves clarity and reduced-motion support"
+    ],
+    "rules": [
+      "Use #090a0b as the canonical dark surface and #efece5 as the canonical light text.",
+      "Reserve wine for high-value emphasis; it must never become a decorative wash.",
+      "Display headlines use Bodoni Moda at regular weight with tight tracking.",
+      "Navigation is 13px uppercase and section labels are 12px uppercase with generous tracking.",
+      "Primary controls maintain a minimum 44px touch target; conversion buttons use 48px or more.",
+      "Keep borders square or nearly square. Avoid card-heavy layouts and soft product-dashboard styling.",
+      "Every animation must communicate hierarchy, progression, or feedback and respect prefers-reduced-motion.",
+      "Use South African language and context deliberately; do not rely on generic global-agency claims."
+    ],
+    "dos": [
+      "Let a single large statement establish each section.",
+      "Use editorial lines and numbered sequences to create rhythm.",
+      "Keep proof, outcomes, and calls to action specific and credible.",
+      "Use the Johannesburg visual as atmosphere, never as a substitute for content.",
+      "Keep focus states visible and disclosure controls keyboard operable."
+    ],
+    "donts": [
+      "Do not introduce gold, neon, gradients, glass cards, or rounded SaaS chrome.",
+      "Do not overuse wine or apply it to long passages of text.",
+      "Do not mix in the typography or palette of the rejected concepts.",
+      "Do not animate every element or use bouncy, playful easing.",
+      "Do not publish invented client logos, awards, statistics, or testimonials."
+    ]
+  }
+}
